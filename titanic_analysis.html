@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>泰坦尼克号乘客幸存预测</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>泰坦尼克沉船事件乘客幸存预测</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7802,7 +7802,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E4%B9%98%E5%AE%A2%E5%B9%B8%E5%AD%98%E9%A2%84%E6%B5%8B"><strong>项目：泰坦尼克号乘客幸存预测</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E4%B9%98%E5%AE%A2%E5%B9%B8%E5%AD%98%E9%A2%84%E6%B5%8B">¶</a></h1>
+<h1 id="%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E6%B2%89%E8%88%B9%E4%BA%8B%E4%BB%B6%E4%B9%98%E5%AE%A2%E5%B9%B8%E5%AD%98%E9%A2%84%E6%B5%8B"><strong>项目：泰坦尼克沉船事件乘客幸存预测</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E6%B2%89%E8%88%B9%E4%BA%8B%E4%BB%B6%E4%B9%98%E5%AE%A2%E5%B9%B8%E5%AD%98%E9%A2%84%E6%B5%8B">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7813,7 +7813,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87"><strong>项目目标</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87">¶</a></h2><p>此数据分析报告的目的是，基于泰坦尼克号乘客的性别和船舱等级等属性，对幸存情况进行逻辑回归分析，并利用得到的模型，对未知幸存情况的乘客，根据属性预测是否从沉船事件中幸存。</p>
+<h2 id="%E4%BA%8B%E4%BB%B6%E8%83%8C%E6%99%AF"><strong>事件背景</strong><a class="anchor-link" href="#%E4%BA%8B%E4%BB%B6%E8%83%8C%E6%99%AF">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7824,23 +7824,19 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><strong>项目简介</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<blockquote>
-<p>泰坦尼克号（英语：RMS Titanic）是一艘奥林匹克级邮轮，于1912年4月首航时撞上冰山后沉没。泰坦尼克号是同级的3艘超级邮轮中的第2艘，与姐妹船奥林匹克号和不列颠号为白星航运公司的乘客们提供大西洋旅行。</p>
-</blockquote>
-<blockquote>
+<p>泰坦尼克号（RMS Titanic）是一艘奥林匹克级邮轮，于1912年4月首航时撞上冰山后沉没。泰坦尼克号是同级的3艘超级邮轮中的第2艘，与姐妹船奥林匹克号和不列颠号为白星航运公司的乘客们提供大西洋旅行。</p>
 <p>泰坦尼克号由位于北爱尔兰贝尔法斯特的哈兰·沃尔夫船厂兴建，是当时最大的客运轮船，由于其规模相当一艘现代航空母舰，因而号称“上帝也沉没不了的巨型邮轮”。在泰坦尼克号的首航中，从英国南安普敦出发，途经法国瑟堡-奥克特维尔以及爱尔兰昆士敦，计划横渡大西洋前往美国纽约市。但因为人为错误，于1912年4月14日船上时间夜里11点40分撞上冰山；2小时40分钟后，即4月15日凌晨02点20分，船裂成两半后沉入大西洋，死亡人数超越1500人，堪称20世纪最大的海难事件，同时也是最广为人知的海难之一。</p>
-</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87"><strong>项目目标</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87">¶</a></h2><p>此数据分析报告的目的是：基于泰坦尼克号乘客的性别和船舱等级等属性，对幸存情况进行逻辑回归分析，并利用得到的模型，对未知幸存情况的乘客，根据属性预测是否从沉船事件中幸存。</p>
 </div>
 </div>
 </div>
@@ -8177,20 +8173,20 @@ a.anchor-link {
 <pre>&lt;class 'pandas.DataFrame'&gt;
 RangeIndex: 891 entries, 0 to 890
 Data columns (total 12 columns):
- #   Column       Non-Null Count  Dtype
----  ------       --------------  -----
- 0   PassengerId  891 non-null    int64
- 1   Survived     891 non-null    int64
- 2   Pclass       891 non-null    int64
- 3   Name         891 non-null    str
- 4   Sex          891 non-null    str
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    str    
+ 4   Sex          891 non-null    str    
  5   Age          714 non-null    float64
- 6   SibSp        891 non-null    int64
- 7   Parch        891 non-null    int64
- 8   Ticket       891 non-null    str
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    str    
  9   Fare         891 non-null    float64
- 10  Cabin        204 non-null    str
- 11  Embarked     889 non-null    str
+ 10  Cabin        204 non-null    str    
+ 11  Embarked     889 non-null    str    
 dtypes: float64(2), int64(5), str(5)
 memory usage: 83.7 KB
 </pre>
@@ -9262,20 +9258,20 @@ memory usage: 83.7 KB
 <pre>&lt;class 'pandas.DataFrame'&gt;
 RangeIndex: 891 entries, 0 to 890
 Data columns (total 12 columns):
- #   Column       Non-Null Count  Dtype
----  ------       --------------  -----
- 0   PassengerId  891 non-null    str
- 1   Survived     891 non-null    int64
- 2   Pclass       891 non-null    int64
- 3   Name         891 non-null    str
- 4   Sex          891 non-null    str
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    str    
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    str    
+ 4   Sex          891 non-null    str    
  5   Age          891 non-null    float64
- 6   SibSp        891 non-null    int64
- 7   Parch        891 non-null    int64
- 8   Ticket       891 non-null    str
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    str    
  9   Fare         891 non-null    float64
- 10  Embarked     891 non-null    str
- 11  HasCabin     891 non-null    int64
+ 10  Embarked     891 non-null    str    
+ 11  HasCabin     891 non-null    int64  
 dtypes: float64(2), int64(5), str(5)
 memory usage: 83.7 KB
 </pre>
@@ -9401,7 +9397,7 @@ Categories (3, int64): [1, 2, 3]</pre>
 2      female
 3      female
 4        male
-        ...
+        ...  
 886      male
 887    female
 888    female
@@ -12208,10 +12204,10 @@ Categories (2, int64): [0, 1]</pre>
 <th>Method:</th> <td>MLE</td> <th>  Df Model:          </th> <td>     5</td>
 </tr>
 <tr>
-<th>Date:</th> <td>Mon, 30 Mar 2026</td> <th>  Pseudo R-squ.:     </th> <td>0.3383</td>
+<th>Date:</th> <td>Sun, 12 Apr 2026</td> <th>  Pseudo R-squ.:     </th> <td>0.3383</td>
 </tr>
 <tr>
-<th>Time:</th> <td>01:58:35</td> <th>  Log-Likelihood:    </th> <td> -392.62</td>
+<th>Time:</th> <td>20:04:06</td> <th>  Log-Likelihood:    </th> <td> -392.62</td>
 </tr>
 <tr>
 <th>converged:</th> <td>True</td> <th>  LL-Null:           </th> <td> -593.33</td>
@@ -12818,15 +12814,15 @@ Categories (2, int64): [0, 1]</pre>
 <pre>&lt;class 'pandas.DataFrame'&gt;
 RangeIndex: 418 entries, 0 to 417
 Data columns (total 7 columns):
- #   Column    Non-Null Count  Dtype
----  ------    --------------  -----
- 0   Pclass    418 non-null    int64
- 1   Sex       418 non-null    str
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   Pclass    418 non-null    int64  
+ 1   Sex       418 non-null    str    
  2   Age       332 non-null    float64
- 3   SibSp     418 non-null    int64
- 4   Parch     418 non-null    int64
- 5   Cabin     91 non-null     str
- 6   Embarked  418 non-null    str
+ 3   SibSp     418 non-null    int64  
+ 4   Parch     418 non-null    int64  
+ 5   Cabin     91 non-null     str    
+ 6   Embarked  418 non-null    str    
 dtypes: float64(1), int64(3), str(3)
 memory usage: 23.0 KB
 </pre>
@@ -13052,7 +13048,7 @@ Categories (3, int64): [1, 2, 3]</pre>
 2        male
 3        male
 4      female
-        ...
+        ...  
 413      male
 414    female
 415      male
@@ -13691,14 +13687,14 @@ Categories (3, str): ['C', 'Q', 'S']</pre>
 <pre>&lt;class 'pandas.DataFrame'&gt;
 RangeIndex: 418 entries, 0 to 417
 Data columns (total 6 columns):
- #   Column      Non-Null Count  Dtype
----  ------      --------------  -----
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
  0   const       418 non-null    float64
  1   Age         418 non-null    float64
- 2   FamilyNum   418 non-null    int64
- 3   Pclass_3    418 non-null    int64
- 4   Sex_male    418 non-null    int64
- 5   HasCabin_1  418 non-null    int64
+ 2   FamilyNum   418 non-null    int64  
+ 3   Pclass_3    418 non-null    int64  
+ 4   Sex_male    418 non-null    int64  
+ 5   HasCabin_1  418 non-null    int64  
 dtypes: float64(2), int64(4)
 memory usage: 19.7 KB
 </pre>
@@ -13744,7 +13740,7 @@ memory usage: 19.7 KB
 2      0.095998
 3      0.104366
 4      0.585002
-         ...
+         ...   
 413    0.093425
 414    0.934593
 415    0.070340
@@ -13937,7 +13933,7 @@ Length: 418, dtype: int64</pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
