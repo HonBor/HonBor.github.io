@@ -7836,7 +7836,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87"><strong>项目目标</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87">¶</a></h2><p>此数据分析报告的目的是：基于泰坦尼克号乘客的性别和船舱等级等属性，对幸存情况进行逻辑回归分析，并利用得到的模型，对未知幸存情况的乘客，根据属性预测是否从沉船事件中幸存。</p>
+<h2 id="%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87"><strong>项目目标</strong><a class="anchor-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87">¶</a></h2><p>基于泰坦尼克号乘客的性别和船舱等级等属性，对幸存情况进行逻辑回归分析，挖掘影响乘客幸存的重要特征，并利用回归模型预测未知幸存情况的乘客是否从沉船事件中幸存。</p>
 </div>
 </div>
 </div>
@@ -7907,6 +7907,35 @@ a.anchor-link {
 </ul>
 </li>
 <li><code>FamilyNum</code>：乘客在船上的家庭成员个数</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%E7%BB%93%E8%AE%BA%E5%89%8D%E7%BD%AE"><strong>结论前置</strong><a class="anchor-link" href="#%E7%BB%93%E8%AE%BA%E5%89%8D%E7%BD%AE">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>泰坦尼克号沉船事件中，乘客生还几率受<strong>年龄、家庭规模、船舱等级、性别以及是否有船舱记录</strong>影响显著：</p>
+<ul>
+<li><strong>年龄越大，生还几率越低</strong>：年龄每增加1岁，生还几率降低 3.69%</li>
+<li><strong>家庭规模越大，生还几率越低</strong>：每多1名同乘家庭成员，生还几率降低 20.55%</li>
+<li><strong>船舱越高级，生还几率越高</strong>：三等舱乘客的生还几率比一等舱乘客低 70.52%</li>
+<li><strong>优先救援女性乘客</strong>：男性乘客的生还几率比女性乘客低 93.70%</li>
+<li><strong>优先救援有登记船舱信息的乘客</strong>：有登记船舱信息的乘客生还几率比无登记乘客高 257.12%</li>
 </ul>
 </div>
 </div>
@@ -10311,7 +10340,7 @@ Name: count, dtype: int64</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>小结</strong>：船舱等级越高，乘客幸存率越低，船舱等级与是否幸存之间存在负相关关系</p>
+<p><strong>小结</strong>：船舱越高级，乘客幸存率越高，船舱等级与是否幸存之间存在正相关关系</p>
 <ul>
 <li>一等舱216人，占总人数的24.24%，幸存136人，幸存率63.96%</li>
 <li>二等舱184人，占总人数的20.65%，幸存87人，幸存率47.28%</li>
@@ -10610,7 +10639,7 @@ Name: count, dtype: int64</pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">clean_train</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"Fare"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"Survived"</span><span class="p">)</span>  <span class="c1"># 绘制直方图，用于展示不同传票金额对应人员的幸存人数对比【0 表示‘遇难’，1 表示‘幸存’】</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">clean_train</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"Fare"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"Survived"</span><span class="p">)</span>  <span class="c1"># 绘制直方图，用于展示不同船票金额对应人员的幸存人数对比【0 表示‘遇难’，1 表示‘幸存’】</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -12204,10 +12233,10 @@ Categories (2, int64): [0, 1]</pre>
 <th>Method:</th> <td>MLE</td> <th>  Df Model:          </th> <td>     5</td>
 </tr>
 <tr>
-<th>Date:</th> <td>Sun, 12 Apr 2026</td> <th>  Pseudo R-squ.:     </th> <td>0.3383</td>
+<th>Date:</th> <td>Mon, 13 Apr 2026</td> <th>  Pseudo R-squ.:     </th> <td>0.3383</td>
 </tr>
 <tr>
-<th>Time:</th> <td>20:04:06</td> <th>  Log-Likelihood:    </th> <td> -392.62</td>
+<th>Time:</th> <td>15:21:59</td> <th>  Log-Likelihood:    </th> <td> -392.62</td>
 </tr>
 <tr>
 <th>converged:</th> <td>True</td> <th>  LL-Null:           </th> <td> -593.33</td>
@@ -12325,7 +12354,7 @@ Categories (2, int64): [0, 1]</pre>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"每多1名同乘家庭成员，生还几率降低 </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2301</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"三等舱乘客的生还几率比一等舱乘客低 </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2214</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"男性乘客的生还几率比女性乘客低 </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">2.7654</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"有登记船舱信息的乘客的生还几率比无登记船舱信息的乘客高 </span><span class="si">{</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1.2729</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"有登记船舱信息的乘客生还几率比无登记乘客高 </span><span class="si">{</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1.2729</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -12342,7 +12371,7 @@ Categories (2, int64): [0, 1]</pre>
 每多1名同乘家庭成员，生还几率降低 20.55%
 三等舱乘客的生还几率比一等舱乘客低 70.52%
 男性乘客的生还几率比女性乘客低 93.70%
-有登记船舱信息的乘客的生还几率比无登记船舱信息的乘客高 257.12%
+有登记船舱信息的乘客生还几率比无登记乘客高 257.12%
 </pre>
 </div>
 </div>
@@ -12355,13 +12384,13 @@ Categories (2, int64): [0, 1]</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>总结</strong>：泰坦尼克号沉没事件中，乘客生还几率与<strong>年龄、家庭规模、船舱等级、性别以及是否有船舱记录</strong>均存在显著关系</p>
+<p><strong>总结</strong>：泰坦尼克号沉船事件中，乘客生还几率受<strong>年龄、家庭规模、船舱等级、性别以及是否有船舱记录</strong>影响显著</p>
 <ul>
 <li><strong>年龄越大，生还几率越低</strong>：年龄每增加1岁，生还几率降低 3.69%</li>
 <li><strong>家庭规模越大，生还几率越低</strong>：每多1名同乘家庭成员，生还几率降低 20.55%</li>
-<li><strong>船舱等级越高，生还几率越低</strong>：三等舱乘客的生还几率比一等舱乘客低 70.52%</li>
+<li><strong>船舱越高级，生还几率越高</strong>：三等舱乘客的生还几率比一等舱乘客低 70.52%</li>
 <li><strong>优先救援女性乘客</strong>：男性乘客的生还几率比女性乘客低 93.70%</li>
-<li><strong>优先救援有登记船舱信息的乘客</strong>：有登记船舱信息的乘客的生还几率比无登记船舱信息的乘客高 257.12%</li>
+<li><strong>优先救援有登记船舱信息的乘客</strong>：有登记船舱信息的乘客生还几率比无登记乘客高 257.12%</li>
 </ul>
 </div>
 </div>
