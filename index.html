@@ -1,172 +1,461 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>我的作品集</title>
-        <style>
-            :root {
-                --primary-color: #007BFF;
-                --secondary-color: #6C757D;
-                --light-bg: #F8F9FA;
-                --card-bg: #FFFFFF;
-                --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-                --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-            }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人作品展示</title>
+  <style>
+    :root {
+      --bg: #0f0f13;
+      --card-bg: #1a1a24;
+      --card-hover: #22222f;
+      --accent: #6c63ff;
+      --accent-light: #8b83ff;
+      --text: #e8e8f0;
+      --text-dim: #8888a0;
+      --border: #2e2e40;
+      --success: #34d399;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+    /* ── 顶部导航 ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,15,19,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .topbar h1 {
+      font-size: 22px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 
-            body {
-                background-color: var(--light-bg);
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                color: #444;
-                line-height: 1.6;
-                padding: 20px;
-                min-height: 100vh;
-            }
+    /* ── 按钮 ── ──
+    */
+    .btn {
+      padding: 8px 18px; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 14px; font-family: inherit; font-weight: 600;
+      transition: background .2s, transform .1s;
+    }
+    .btn:active { transform: scale(.96); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-light); }
+    .btn-ghost {
+      background: transparent; color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: #ef4444; color: #fff; }
+    .btn-danger:hover { background: #f87171; }
 
-            .container {
-                max-width: 2000px;
-                height: 80%;
-                margin: 0 auto;
-            }
+    /* ── 主体布局 ── */
+    .main { max-width: 1400px; margin: 0 auto; padding: 32px; }
 
-            .portfolio-container {
-                display: flex;
-                gap: 20px;
-            }
+    /* ── 控制面板 ── */
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .panel-title {
+      font-size: 16px; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
 
-            .sidebar {
-                width: 250px;
-                background-color: var(--card-bg);
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: var(--shadow-sm);
-                height: 91vh;
-                overflow-y: auto;
-            }
+    /* 输入框 */
+    .input-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .input {
+      flex: 1; min-width: 200px; padding: 10px 14px;
+      border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text);
+      font-size: 14px; font-family: inherit;
+      outline: none; transition: border-color .2s;
+    }
+    .input:focus { border-color: var(--accent); }
+    .input::placeholder { color: var(--text-dim); }
 
-            .sidebar h2 {
-                font-size: 1.2em;
-                color: #333;
-                margin-bottom: 15px;
-                padding-bottom: 10px;
-                border-bottom: 1px solid #eee;
-            }
+    /* ── 作品卡片网格 ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(108,99,255,0.18);
+    }
+    .card-thumb {
+      width: 100%; height: 170px;
+      background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px; color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 16px; }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 12px; }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; }
+    .card-tag {
+      font-size: 11px; padding: 3px 10px; border-radius: 20px;
+      background: rgba(108,99,255,0.15); color: var(--accent-light);
+      font-weight: 600;
+    }
+    .card-actions { display: flex; gap: 6px; }
+    .icon-btn {
+      width: 30px; height: 30px; border-radius: 6px; border: none; cursor: pointer;
+      background: var(--bg); color: var(--text-dim); font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s;
+    }
+    .icon-btn:hover { background: var(--accent); color: #fff; }
+    .icon-btn.del:hover { background: #ef4444; }
 
-            .project-list {
-                list-style: none;
-            }
+    /* ── 空状态 ── */
+    .empty {
+      text-align: center; padding: 80px 20px;
+      color: var(--text-dim);
+    }
+    .empty-icon { font-size: 64px; margin-bottom: 16px; opacity: .4; }
+    .empty p { font-size: 15px; }
 
-            .project-list li {
-                padding: 10px 0;
-                border-bottom: 1px solid #f5f5f5;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
+    /* ── 弹窗 ── */
+    .modal-mask {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .modal-mask.open { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 16px; width: 90%; max-width: 600px;
+      padding: 28px; box-shadow: var(--shadow);
+      transform: translateY(20px); transition: transform .25s;
+    }
+    .modal-mask.open .modal { transform: translateY(0); }
+    .modal h2 { font-size: 18px; margin-bottom: 20px; }
+    .modal label { font-size: 13px; color: var(--text-dim); display: block; margin-bottom: 6px; margin-top: 14px; }
+    .modal .input { width: 100%; }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
 
-            .project-list li:hover {
-                color: var(--primary-color);
-                padding-left: 5px;
-            }
+    /* ── 展示模式 ── */
+    .viewer-mask {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.92);
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .viewer-mask.open { opacity: 1; pointer-events: auto; }
+    .viewer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; border-bottom: 1px solid var(--border);
+      background: rgba(15,15,19,0.9);
+    }
+    .viewer-header h2 { font-size: 16px; }
+    .viewer-body { flex: 1; overflow: hidden; position: relative; }
+    .viewer-body iframe { width: 100%; height: 100%; border: none; }
 
-            .project-list li.active {
-                color: var(--primary-color);
-                font-weight: 500;
-                border-left: 3px solid var(--primary-color);
-                padding-left: 12px;
-            }
+    /* ── 筛选标签 ── */
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .filter-chip {
+      padding: 5px 14px; border-radius: 20px; font-size: 13px;
+      border: 1px solid var(--border); color: var(--text-dim);
+      cursor: pointer; background: transparent; font-family: inherit;
+      transition: all .2s;
+    }
+    .filter-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(108,99,255,0.1); }
+    .filter-chip:hover { border-color: var(--accent); }
 
-            .preview-area {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
+    /* ── 统计 ── */
+    .stats { display: flex; gap: 24px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stat-item { font-size: 13px; color: var(--text-dim); }
+    .stat-item strong { color: var(--accent-light); font-size: 18px; }
 
-            .preview-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px 20px;
-                background-color: var(--card-bg);
-                border-radius: 10px 10px 0 0;
-                box-shadow: var(--shadow-sm);
-            }
+    /* ── 响应式 ── */
+    @media (max-width: 600px) {
+      .main { padding: 16px; }
+      .topbar { padding: 12px 16px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
 
-            .preview-title {
-                font-size: 1.3em;
-                color: #333;
-            }
+<!-- 顶部导航 -->
+<div class="topbar">
+  <h1>✦ 个人作品展示</h1>
+  <div class="topbar-actions">
+    <button class="btn btn-ghost" onclick="exportData()">📤 导出配置</button>
+    <button class="btn btn-ghost" onclick="importData()">📥 导入配置</button>
+    <button class="btn btn-primary" onclick="openModal()">＋ 添加作品</button>
+  </div>
+</div>
 
-            .preview-frame {
-                flex: 1;
-                border: none;
-                border-radius: 0 0 10px 10px;
-                box-shadow: var(--shadow-sm);
-                background-color: #fff;
-            }
+<!-- 主体 -->
+<div class="main">
 
-            .footer {
-                text-align: center;
-                padding: 0 0;
-                color: #888;
-                border-top: 1px solid #eee;
-            }
+  <!-- 统计栏 -->
+  <div class="stats">
+    <div class="stat-item">共 <strong id="totalCount">0</strong> 件作品</div>
+    <div class="stat-item">已展示 <strong id="showCount">0</strong> 件</div>
+  </div>
 
-            @media (max-width: 768px) {
-                .portfolio-container {
-                    flex-direction: column;
-                    height: 100vh;
-                }
+  <!-- 筛选栏 -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-chip active" data-filter="all">全部</button>
+  </div>
 
-                .sidebar {
-                    width: 100%;
-                    height: 20vh;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="portfolio-container">
-                <div class="sidebar">
-                    <h2>作品列表</h2>
-                    <ul class="project-list">
-                        <li class="active" data-src="cosmetics_analysis.html">化妆品电商用户行为分析</li>
-                        <li data-src="titanic_analysis.html">泰坦尼克沉船事件乘客幸存预测</li>
-                    </ul>
-                </div>
+  <!-- 作品网格 -->
+  <div class="grid" id="grid"></div>
 
-                <div class="preview-area">
-                    <div class="preview-header">
-                        <div class="preview-title">化妆品电商用户行为分析</div>
-                    </div>
-                    <iframe class="preview-frame" src="cosmetics_analysis.html" frameborder="0"></iframe>
-                </div>
-            </div>
+  <!-- 空状态 -->
+  <div class="empty" id="empty" style="display:none;">
+    <div class="empty-icon">🎨</div>
+    <p>还没有作品，点击右上角「添加作品」开始吧</p>
+  </div>
+</div>
 
-            <div class="footer">
-                <p>© 2026 我的《数据分析》作品集</p >
-            </div>
+<!-- 添加/编辑作品弹窗 -->
+<div class="modal-mask" id="modalMask" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <h2 id="modalTitle">添加新作品</h2>
+    <label>作品名称</label>
+    <input class="input" id="inpName" placeholder="例如：3D 交互可视化">
+    <label>HTML 页面路径</label>
+    <input class="input" id="inpPath" placeholder="例如：projects/demo.html">
+    <label>描述</label>
+    <input class="input" id="inpDesc" placeholder="简短描述你的作品">
+    <label>分类标签</label>
+    <input class="input" id="inpTag" placeholder="例如：设计 / 编程 / 摄影">
+    <label>封面图片 URL（可选）</label>
+    <input class="input" id="inpThumb" placeholder="https://example.com/cover.jpg">
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" id="modalSaveBtn" onclick="saveWork()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 全屏查看器 -->
+<div class="viewer-mask" id="viewerMask">
+  <div class="viewer-header">
+    <h2 id="viewerTitle">作品预览</h2>
+    <button class="btn btn-ghost" onclick="closeViewer()">✕ 关闭</button>
+  </div>
+  <div class="viewer-body">
+    <iframe id="viewerFrame" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+  </div>
+</div>
+
+<!-- 隐藏的文件输入 -->
+<input type="file" id="fileImport" accept=".json" style="display:none" onchange="handleImport(event)">
+
+<script>
+  // ── 数据 ──
+  let works = JSON.parse(localStorage.getItem('portfolio_works') || '[]');
+  let editingId = null;
+  let activeFilter = 'all';
+
+  // ── 初始化示例数据 ──
+  if (works.length === 0) {
+    works = [
+      { id: 1, name: '交互可视化Demo', path: 'demo1.html', desc: '一个展示 Canvas 交互效果的示例页面', tag: '编程', show: true, thumb: '' },
+      { id: 2, name: '摄影作品集', path: 'demo2.html', desc: '风光与人像摄影作品展示', tag: '摄影', show: true, thumb: '' },
+      { id: 3, name: 'UI 设计稿', path: 'demo3.html', desc: '移动端 App 界面设计方案', tag: '设计', show: false, thumb: '' },
+    ];
+    save();
+  }
+
+  // ── 渲染 ──
+  function render() {
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const filterBar = document.getElementById('filterBar');
+
+    // 统计
+    document.getElementById('totalCount').textContent = works.length;
+    document.getElementById('showCount').textContent = works.filter(w => w.show).length;
+
+    // 筛选标签
+    const tags = [...new Set(works.map(w => w.tag).filter(Boolean))];
+    let filterHTML = `<button class="filter-chip ${activeFilter === 'all' ? 'active' : ''}" onclick="setFilter('all')">全部</button>`;
+    tags.forEach(t => {
+      filterHTML += `<button class="filter-chip ${activeFilter === t ? 'active' : ''}" onclick="setFilter('${escHtml(t)}')">${escHtml(t)}</button>`;
+    });
+    filterBar.innerHTML = filterHTML;
+
+    // 筛选
+    const filtered = activeFilter === 'all' ? works : works.filter(w => w.tag === activeFilter);
+
+    // 空状态
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = '';
+      return;
+    }
+    empty.style.display = 'none';
+
+    grid.innerHTML = filtered.map(w => `
+      <div class="card" data-id="${w.id}">
+        <div class="card-thumb">
+          ${w.thumb
+            ? `<img src="${escAttr(w.thumb)}" alt="${escAttr(w.name)}" onerror="this.parentElement.innerHTML='🖼'">`
+            : '🖼'}
         </div>
+        <div class="card-body">
+          <div class="card-title">${escHtml(w.name)}</div>
+          <div class="card-desc">${escHtml(w.desc || '暂无描述')}</div>
+          <div class="card-meta">
+            <span class="card-tag">${escHtml(w.tag || '未分类')}</span>
+            <div class="card-actions">
+              <button class="icon-btn" title="预览" onclick="event.stopPropagation();preview(${w.id})">▶</button>
+              <button class="icon-btn" title="编辑" onclick="event.stopPropagation();editWork(${w.id})">✎</button>
+              <button class="icon-btn del" title="删除" onclick="event.stopPropagation();deleteWork(${w.id})">✕</button>
+              <button class="icon-btn" title="显示: ${w.show ? '关' : '开'}" onclick="event.stopPropagation();toggleShow(${w.id})">${w.show ? '👁' : '👁‍🗨'}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
 
-        <script>
-            const projectItems = document.querySelectorAll('.project-list li');
-            const previewFrame = document.querySelector('.preview-frame');
-            const previewTitle = document.querySelector('.preview-title');
+  // ── 工具函数 ──
+  function save() { localStorage.setItem('portfolio_works', JSON.stringify(works)); render(); }
+  function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function escAttr(s) { return escHtml(s); }
+  function nextId() { return works.length ? Math.max(...works.map(w => w.id)) + 1 : 1; }
 
-            projectItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    projectItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    previewFrame.src = this.getAttribute('data-src');
-                    previewTitle.textContent = this.textContent;
-                });
-            });
-        </script>
-    </body>
+  // ── 筛选 ──
+  function setFilter(tag) { activeFilter = tag; render(); }
+
+  // ── 弹窗 ──
+  function openModal(id = null) {
+    editingId = id;
+    document.getElementById('modalTitle').textContent = id ? '编辑作品' : '添加新作品';
+    if (id) {
+      const w = works.find(x => x.id === id);
+      document.getElementById('inpName').value = w.name;
+      document.getElementById('inpPath').value = w.path;
+      document.getElementById('inpDesc').value = w.desc;
+      document.getElementById('inpTag').value = w.tag;
+      document.getElementById('inpThumb').value = w.thumb;
+    } else {
+      ['inpName','inpPath','inpDesc','inpTag','inpThumb'].forEach(id => document.getElementById(id).value = '');
+    }
+    document.getElementById('modalMask').classList.add('open');
+  }
+  function closeModal() { document.getElementById('modalMask').classList.remove('open'); editingId = null; }
+  function closeModalOutside(e) { if (e.target === e.currentTarget) closeModal(); }
+
+  function saveWork() {
+    const name = document.getElementById('inpName').value.trim();
+    const path = document.getElementById('inpPath').value.trim();
+    if (!name || !path) { alert('请填写作品名称和页面路径'); return; }
+    const data = {
+      name,
+      path,
+      desc: document.getElementById('inpDesc').value.trim(),
+      tag: document.getElementById('inpTag').value.trim(),
+      thumb: document.getElementById('inpThumb').value.trim(),
+    };
+    if (editingId) {
+      const w = works.find(x => x.id === editingId);
+      Object.assign(w, data);
+    } else {
+      data.id = nextId();
+      data.show = true;
+      works.push(data);
+    }
+    save();
+    closeModal();
+  }
+
+  // ── 操作 ──
+  function editWork(id) { openModal(id); }
+  function deleteWork(id) {
+    if (!confirm('确定要删除这个作品吗？')) return;
+    works = works.filter(w => w.id !== id);
+    save();
+  }
+  function toggleShow(id) {
+    const w = works.find(x => x.id === id);
+    w.show = !w.show;
+    save();
+  }
+  function preview(id) {
+    const w = works.find(x => x.id === id);
+    if (!w.show) { alert('请先开启此作品的展示开关'); return; }
+    document.getElementById('viewerTitle').textContent = w.name;
+    document.getElementById('viewerFrame').src = w.path;
+    document.getElementById('viewerMask').classList.add('open');
+  }
+  function closeViewer() {
+    document.getElementById('viewerMask').classList.remove('open');
+    setTimeout(() => { document.getElementById('viewerFrame').src = 'about:blank'; }, 300);
+  }
+
+  // ── 导出 / 导入 ──
+  function exportData() {
+    const blob = new Blob([JSON.stringify(works, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '作品集配置.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  function importData() { document.getElementById('fileImport').click(); }
+  function handleImport(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (Array.isArray(data)) { works = data; save(); alert('导入成功！共 ' + data.length + ' 件作品。'); }
+        else alert('文件格式不正确');
+      } catch { alert('解析失败，请检查文件'); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  }
+
+  // ── 键盘快捷键 ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeViewer(); closeModal(); }
+  });
+
+  // ── 启动 ──
+  render();
+</script>
+</body>
 </html>
